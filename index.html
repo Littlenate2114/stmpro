@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="stylesheet" href="master.css" type="text/css">
+		<title>STM PRO</title>
+	</head>
+	<body>
+		<div class="container">
+		<div class="nav">
+			<div class="left">
+				<p id="con"></p>
+				<p style="color:white;" id="bar">|</p>
+				<p style="color:white;">No Station Currently Loaded</p>
+			</div>
+			<p id="time"></p>	
+		</div>
+		<div class="command">
+			<input spellcheck="false" type="text" placeholder="Type Command >" />	
+		</div>	
+		<div class="music-player">
+			<div class="titlebar">
+				<p>STM Music Player</p>	
+			</div>
+			<select name="cars"class="content" multiple>
+			  <option value="vib">1.Liquid Vibrations - https://stream75.hearthis.at/</option>
+			  <option value="pulse">2.PulseWidth Mix - https://stmpro.19113.repo/music</option>
+			</select>	
+		</div>
+		<div class="list">
+			<div class="titlebar">
+				<p>STM Pro Cli</p>	
+			</div>
+			<pre style="color:white;font-size:14px;">
+ ____    ______             ____    ____    _____       ____     __     ______     
+/\  _`\ /\__  _\/'\_/`\    /\  _`\ /\  _`\ /\  __`\    /\  _`\  /\ \   /\__  _\    
+\ \,\L\_\/_/\ \/\      \   \ \ \L\ \ \ \L\ \ \ \/\ \   \ \ \/\_\\ \ \  \/_/\ \/    
+ \/_\__ \  \ \ \ \ \__\ \   \ \ ,__/\ \ ,  /\ \ \ \ \   \ \ \/_/_\ \ \  __\ \ \    
+   /\ \L\ \ \ \ \ \ \_/\ \   \ \ \/  \ \ \\ \\ \ \_\ \   \ \ \L\ \\ \ \L\ \\_\ \__ 
+   \ `\____\ \ \_\ \_\\ \_\   \ \_\   \ \_\ \_\ \_____\   \ \____/ \ \____//\_____\
+    \/_____/  \/_/\/_/ \/_/    \/_/    \/_/\/ /\/_____/    \/___/   \/___/ \/_____/
+                                                                                   
+                                                                                   
+			</pre>
+			<p style="color:white;margin-top:-20px;margin-left:10px;">Welcome to the dark side. Created by 19113.</p>
+			<p style="color:white;margin-left:10px;">----------------------------------------------------------------------------</p>
+			<div class="cli-area">
+				<div class="texta">
+					<p id="prompt">[admin@19.11.3 ~]$ </p>
+					<input type="text" id="cli-inp"/>	
+				</div>
+			</div>
+		</div>
+		<div class="scanner">
+			<div class="titlebar">
+				<p>STM Pro Scanner</p>	
+			</div>
+		</div>
+		</div>
+		<div class="hidden"></div>
+	</body>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script charset="utf-8" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+	<script charset="utf-8">
+		$("select").keyup(function(event) {
+			if (event.keyCode === 13) {
+				if($(this).val() == "vib"){
+				$(".hidden").html(`<audio id="player" autoplay><source src="https://stream75.hearthis.at/bbf6bdbae1ec4c1943ec58533505e000.mp3" type="audio/mpeg"></audio>`);
+
+				}
+			}
+			});
+		$.get("http://ipinfo.io", function(response) {
+		var meip = response.ip
+		console.log(meip);
+		if(!meip.startsWith("60.240.166")){
+			$("#con").text("VPN Connected");
+			$("#con").css('color', 'green');
+		}else{
+			$("#con").text("VPN Not Connected");
+			$("#con").css('color', '#b94b37');
+		}
+		}, "jsonp");
+		$(".command").hide();
+		$("body").keyup(function(event) {
+			if (event.keyCode === 220) {
+				console.log('fac');
+				$(".command").show();
+				$(".command input").focus();
+			}
+			if (event.keyCode === 27) {
+				$(".command").hide();
+				$(".command input").val("");
+			}
+			});
+		setInterval(function(){
+			var d = new Date();
+			var time = d.toString();
+			var nd = time.slice(0, 24);
+			$("#time").text(nd);
+		}, 1000);
+	</script>
+</html>
